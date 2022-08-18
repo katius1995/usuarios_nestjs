@@ -45,7 +45,7 @@ export class AppService {
     body.generales['promise_valor'] = "promise_1";
     body.generales['sql'] = query;
     body.generales['params'] = params;
-    body.generales.operacion = 'consultar';
+    body.generales.operacion = 'search';
 
     console.log("Entra a Utils...");
 

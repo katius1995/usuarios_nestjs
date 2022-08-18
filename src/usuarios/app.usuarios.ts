@@ -5,7 +5,7 @@ export class Usuarios {
     switch (message.generales.operacion) {
       case 'login':
         {
-             appService.validarDatos(message.data, {username:"listo",password:"listo"}).then(async errores => {
+             appService.validateData(message.data, {username:"listo",password:"listo"}).then(async errores => {
                 console.log("Se completa con valor = "+errores);
                 if(Object.keys(JSON.parse(errores)).length == 0){
                     console.log('Entra a login...');
@@ -18,7 +18,7 @@ export class Usuarios {
                     ];
                     
                     
-                    appService.consultarNodoUtils(query, params, message, function(valor) {
+                    appService.searchNodeUtils(query, params, message, function(valor) {
                       if(valor.estado_p == 200){
                         appService.sendMessage(context.getArgs()[0].key, valor, 'nest_usuarios');
                       }else{
@@ -68,7 +68,7 @@ export class Usuarios {
           ];
           //message.generales.operacion = 'crear';
           //appService.sendMessage('nest_nododatos', message, 'nest_gateway');
-          appService.consultarMaster(query, params, message);
+          appService.searchMaster(query, params, message);
         }
         break;
 
@@ -77,7 +77,7 @@ export class Usuarios {
           let query = 'SELECT * FROM usuarios WHERE codigo ilike $1';
           let params = ['%' + message.data.codigo + '%'];
           //appService.sendMessage('nest_nododatos', message, 'nest_gateway');
-          appService.consultarMaster(query, params, message);
+          appService.searchMaster(query, params, message);
         }
         break;
     case 'nombre':
@@ -86,7 +86,7 @@ export class Usuarios {
             let params = ['%' + message.data.codigo + '%'];
             //message.generales.operacion = 'consultar';
             //appService.sendMessage('nest_nododatos', message, 'nest_gateway');
-            appService.consultarMaster(query, params, message);
+            appService.searchMaster(query, params, message);
         }
         break;
     case 'codigo':
@@ -95,7 +95,7 @@ export class Usuarios {
             let params = [message.data.codigo];
             //message.generales.operacion = 'consultar';
             //appService.sendMessage('nest_nododatos', message, 'nest_gateway');
-            appService.consultarMaster(query, params, message);
+            appService.searchMaster(query, params, message);
         }
         break;
       default:
