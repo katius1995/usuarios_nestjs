@@ -30,7 +30,7 @@ export class AppController {
   }
 
   @MessagePattern('nest_usuarios-utils') // Our topic name
-  getUtils(@Payload() message, @Ctx() context: KafkaContext) {
+  getUtils(@Payload() message) {
     try {
       let prom = message.promise_valor;
       console.log("Entra a Utils promise... = "+message);

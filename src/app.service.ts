@@ -9,7 +9,7 @@ export class AppService {
     private readonly kafkaProducer: Producer,
   ) {}
 
-  async validarDatos(datos, validacion):Promise<any>{
+  async validateData(datos: any, validacion: any):Promise<any>{
     let val = new Promise((resolve, reject) => {
       try{
         let errores = {}
@@ -32,7 +32,7 @@ export class AppService {
     return val;
   }
 
-  async consultarMaster(query,params,body){
+  async searchMaster(query:string,params:any,body:any){
     body.generales['sql'] = query;
     body.generales['params'] = params;
     body.generales.operacion = 'consultar';
@@ -40,7 +40,7 @@ export class AppService {
     this.sendMessage('nest_nododatos', body, 'nest_gateway');
   }
 
-  async consultarNodoUtils(query,params,body,funcion){
+  async searchNodeUtils(query:string,params:any,body:any,funcion:any){
     GlobalService.promises = {promise_1:funcion};
     body.generales['promise_valor'] = "promise_1";
     body.generales['sql'] = query;
@@ -52,7 +52,7 @@ export class AppService {
     this.sendMessage('nest_nododatos', body, 'nest_usuarios-utils');
   }
 
-  async sendMessage(topic, data, key?) {
+  async sendMessage(topic:string, data:any, key?:string) {
     return this.kafkaProducer.send({
       topic,
       messages: [
