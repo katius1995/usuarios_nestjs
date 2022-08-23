@@ -7,11 +7,12 @@ import {
 } from '@nestjs/microservices';
 import { AppService } from './app.service';
 import { GlobalService } from './global.variables';
+import { MailService } from './mail/mail.service';
 import { Usuarios } from './usuarios/app.usuarios';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {
+  constructor(private readonly appService: AppService, private mailService: MailService) {
     GlobalService.services = { usuarios: Usuarios };
   }
 
@@ -23,6 +24,7 @@ export class AppController {
         message,
         context,
         this.appService,
+        this.mailService
       );
     } catch (error) {
       console.log(error);

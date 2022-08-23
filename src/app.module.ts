@@ -3,9 +3,10 @@ import { Producer } from 'kafkajs';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { KafkaProducerProvider } from './kafka-producer.provider';
+import { MailModule } from './mail/mail.module';
 
 @Module({
-  imports: [],
+  imports: [MailModule],
   controllers: [AppController],
   providers: [AppService, KafkaProducerProvider],
 })
