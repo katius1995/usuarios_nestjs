@@ -13,8 +13,8 @@ import { MailService } from './mail.service';
         host: 'smtp.gmail.com',
         secure: false,
         auth: {
-          user: 'notificaciones@laferre.co',
-          pass: 'laferre2020',
+          user: 'cfcirom@gmail.com',
+          pass: 'ciro',
         },
       },
       defaults: {
