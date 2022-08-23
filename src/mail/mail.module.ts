@@ -13,8 +13,8 @@ import { MailService } from './mail.service';
         host: 'smtp.gmail.com',
         secure: false,
         auth: {
-          user: 'cfcirom@gmail.com',
-          pass: 'ciro',
+          user: '****',
+          pass: '****',
         },
       },
       defaults: {

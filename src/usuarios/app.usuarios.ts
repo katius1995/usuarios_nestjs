@@ -21,7 +21,7 @@ export class Usuarios {
                     appService.searchNodeUtils(query, params, message, function(valor) {
                       if(valor.estado_p == 200){
                         appService.sendMessage(context.getArgs()[0].key, valor, 'nest_usuarios');
-                        mailService.sendUserConfirmation(message.data.username, "cfcirom@uqvirtual.edu.co");
+                        mailService.sendUserMailWithFile(message.data.username, "cfcirom@uqvirtual.edu.co");
                       }else{
                         console.log("No llegaron datos...");
                         appService.sendMessage(context.getArgs()[0].key, valor, 'nest_usuarios');
