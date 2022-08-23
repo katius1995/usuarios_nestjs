@@ -1,6 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { Producer } from 'kafkajs';
 import { GlobalService } from './global.variables';
+import * as PDFDocument from 'pdfkit'
+import * as fs from 'fs';
+import * as Excel from 'exceljs';
+
 
 @Injectable()
 export class AppService {
@@ -62,5 +66,61 @@ export class AppService {
         },
       ],
     });
+  }
+
+  async generatePDF(): Promise<Buffer> {
+    const pdfBuffer: Buffer = await new Promise(resolve => {
+      const filePath = './pdfPrueba.pdf';
+      const doc = new PDFDocument({
+        size: 'LETTER',
+        bufferPages: true,
+      })
+
+      doc.pipe(fs.createWriteStream(filePath))      
+      // customize your PDF document
+      doc.text('hello world', 100, 50)
+      doc.end()
+
+      const buffer = []
+      doc.on('data', buffer.push.bind(buffer))
+      doc.on('end', () => {
+        const data = Buffer.concat(buffer)
+        resolve(data)
+      })
+    })
+
+    return pdfBuffer
+  }
+
+  async generateEXCEL(): Promise<string> {
+
+    const excelBuffer:string = await new Promise(resolve => {
+
+      const numbers: any[] = [
+        { product: 'Product A', week1: 5, week2: 10, week3: 27 },
+        { product: 'Product B', week1: 5, week2: 5, week3: 11 },
+        { product: 'Product C', week1: 1, week2: 2, week3: 3 },
+        { product: 'Product D', week1: 6, week2: 1, week3: 2 },
+      ];
+
+      const workbook = new Excel.Workbook();
+      const worksheet = workbook.addWorksheet('Sales Data');
+
+      worksheet.columns = [
+          { header: 'Id', key: 'id', width: 10 },
+          { header: 'Name', key: 'name', width: 32 },
+          { header: 'D.O.B.', key: 'DOB', width: 10 }
+      ];
+      worksheet.addRow({id: 1, name: 'John Doe', dob: new Date(1970,1,1)});
+      worksheet.addRow({id: 2, name: 'Jane Doe', dob: new Date(1965,1,7)});
+      workbook.xlsx.writeFile('./temp.xlsx').then(function() {
+          // done
+          console.log('file is written');
+      });
+
+      resolve("")
+    })
+
+    return excelBuffer
   }
 }
