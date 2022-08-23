@@ -95,21 +95,13 @@ export class AppService {
   async generateEXCEL(): Promise<string> {
 
     const excelBuffer:string = await new Promise(resolve => {
-
-      const numbers: any[] = [
-        { product: 'Product A', week1: 5, week2: 10, week3: 27 },
-        { product: 'Product B', week1: 5, week2: 5, week3: 11 },
-        { product: 'Product C', week1: 1, week2: 2, week3: 3 },
-        { product: 'Product D', week1: 6, week2: 1, week3: 2 },
-      ];
-
       const workbook = new Excel.Workbook();
       const worksheet = workbook.addWorksheet('Sales Data');
 
       worksheet.columns = [
           { header: 'Id', key: 'id', width: 10 },
           { header: 'Name', key: 'name', width: 32 },
-          { header: 'D.O.B.', key: 'DOB', width: 10 }
+          { header: 'D.O.B.', key: 'dob', width: 10 }
       ];
       worksheet.addRow({id: 1, name: 'John Doe', dob: new Date(1970,1,1)});
       worksheet.addRow({id: 2, name: 'Jane Doe', dob: new Date(1965,1,7)});
